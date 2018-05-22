@@ -18,21 +18,21 @@
     <div class="toDoListContents">
   <h1>TODO List</h1>
   <h4>A place to store the things you have to do!</h4>
-  <input type="text" placeholder="Filter your to-dos" ng-model = "search"> 
+  <input type="text" placeholder="Filter your to-dos" ng-model = "itemsAddedToList"> 
 
 
-    <div class="toDoItem" ng-repeat="item in ctrl.items" >
-    <section ng-class="{'true': item.completed === true, 'false': item.completed === false'}">
+    <div class="toDoItem" ng-repeat="item in ctrl.items | filter: itemsAddedToList" >
+    <section ng-class="{'completed': item.completed === true}">
       <p>{{$index + 1 }}.
-      <button type="button" class="listBtn" ng-if= "item.completed === false">Complete</button>
+      <button ng-click="ctrl.completeTask($index);" type="button" class="listBtn" ng-if= "item.completed === false">Complete</button>
       {{item.task}}
-      <i class="material-icons">clear</i></p>
+      <i ng-click="ctrl.removeTask($index, thing);" class="material-icons">clear</i></p>
       </section>
     </div>
 
-  <input type="text" placeholder="Add your todo" ng-model = "add">
+  <input type="text" placeholder="Add your todo" ng-model = "ctrl.item.task">
   <br>
-  <button class="addbtn" type="button">Add</button>
+  <button ng-click="ctrl.addTask(ctrl.item.task)" class="addbtn" type="button">Add</button>
 </div>
 </div>
 
